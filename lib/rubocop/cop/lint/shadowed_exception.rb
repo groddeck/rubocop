@@ -43,8 +43,7 @@ module RuboCop
             contains_multiple_levels_of_exceptions?(group)
           end
 
-          return if !rescue_group_rescues_multiple_levels &&
-                    rescued_groups == sort_rescued_groups(rescued_groups)
+          return if !rescue_group_rescues_multiple_levels && sorted?(rescued_groups)
 
           add_offense(node, offense_range(node, rescues))
         end
@@ -98,18 +97,18 @@ module RuboCop
           end
         end
 
-        def sort_rescued_groups(groups)
-          groups.sort do |x, y|
+        def sorted?(groups)
+          groups.each_cons(2).all? do |x, y|
             if x.include?(Exception)
-              1
+              false
             elsif y.include?(Exception)
-              -1
+              true
             elsif x.none? || y.none?
-              # do not change the order if a group is empty or only contains
-              # `nil`s
-              0
+              # consider equivalent in ordering if two groups are empty or
+              # contain only `nil`s
+              true
             else
-              x <=> y || 0
+              (x <=> y || 0) <= 0
             end
           end
         end

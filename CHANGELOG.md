@@ -25,6 +25,8 @@
 * [#3386](https://github.com/bbatsov/rubocop/issues/3386): Make `VariableForce` understand an empty RegExp literal as LHS to `=~`. ([@drenmi][])
 * [#3421](https://github.com/bbatsov/rubocop/pull/3421): Fix clobbering `inherit_from` additions when not using Namespaces in the configs. ([@nicklamuro][])
 * [#3425](https://github.com/bbatsov/rubocop/pull/3425): Fix bug for invalid bytes in UTF-8 in `Lint/PercentStringArray` cop. ([@pocke][])
+* Fix error in `Lint/ShadowedException` copy if multiple custom rescue groups and at least one group has multiple exceptions. ([@groddeck][])
+[@groddeck]: https://github.com/groddeck
 
 ### Changes
 

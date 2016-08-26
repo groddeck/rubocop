@@ -268,6 +268,21 @@ describe RuboCop::Cop::Lint::ShadowedException do
       expect(cop.offenses).to be_empty
     end
 
+    it 'accepts rescuing multiple custom exceptions, without multiple levels, ' \
+       'including multiple in a group' do
+      inspect_source(cop, ['begin',
+                           '  something',
+                           'rescue ErrorA',
+                           '  handle_error',
+                           'rescue ErrorB, ErrorC',
+                           '  handle_error',
+                           'rescue ErrorD',
+                           '  handle_error',
+                           'end'])
+
+      expect(cop.offenses).to be_empty
+    end
+
     it 'accepts rescuing exceptions in order of level with multiple ' \
        'exceptions in a group' do
       inspect_source(cop, ['begin',
