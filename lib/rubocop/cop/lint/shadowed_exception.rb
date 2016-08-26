@@ -43,7 +43,8 @@ module RuboCop
             contains_multiple_levels_of_exceptions?(group)
           end
 
-          return if !rescue_group_rescues_multiple_levels && sorted?(rescued_groups)
+          return if !rescue_group_rescues_multiple_levels &&
+                    sorted?(rescued_groups)
 
           add_offense(node, offense_range(node, rescues))
         end
